@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,9 @@ public class MedicoController {
     public List<DadosListagemMedico> listar(){
         //É necessário converter do tipo Medico para o tipo DadosListagemMedico
         //Para isso, utilizamos o .map()
-        return repository.findAll().stream().map(DadosListagemMedico::new).toList();
+        return repository.findAll().stream().
+                map(DadosListagemMedico::new)
+                .sorted(Comparator.comparing(DadosListagemMedico::nome))
+                .toList();
     }
 }
