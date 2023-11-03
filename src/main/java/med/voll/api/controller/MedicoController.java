@@ -30,7 +30,7 @@ public class MedicoController {
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable page){
         //É necessário converter do tipo Medico para o tipo DadosListagemMedico
         //Para isso, utilizamos o .map()
-        return repository.findAll(page).map(DadosListagemMedico::new);
+        return repository.findAllByAtivoTrue(page).map(DadosListagemMedico::new);
     }
 
     @PutMapping
@@ -40,10 +40,17 @@ public class MedicoController {
        medico.atualizar(dados);
     }
 
+//    @DeleteMapping("/{id}")
+//    @Transactional
+//    // @PathVariable -> Indica que o valor de uma varíval será coletado pela url/caminho/path
+//    public void deletar(@PathVariable Long id){
+//        repository.deleteById(id);
+//    }
+
     @DeleteMapping("/{id}")
     @Transactional
-    // @PathVariable -> Indica que o valor de uma varíval será coletado pela url/caminho/path
-    public void deletar(@PathVariable Long id){
-        repository.deleteById(id);
+    public void excluir(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 }
