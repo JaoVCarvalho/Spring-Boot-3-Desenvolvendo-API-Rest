@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 @RestControllerAdvice
 public class TratadorDeErros {
 
+    // O próprio Spring faz essa chamada para a trativa de erros
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity tratarErro404(){
         return ResponseEntity.notFound().build();
