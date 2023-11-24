@@ -30,6 +30,8 @@ public class SecurityConfigurations {
                 // Permitir que requisição de login seja liberada, se não seria necessário estar "logado" para logar
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                    // O "/**" permite que qualquer rota após a barra seja validada
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
