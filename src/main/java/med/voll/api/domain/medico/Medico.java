@@ -30,6 +30,7 @@ public class Medico {
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
 
+    // Explicar para o Spring que não é necessário criar uma tabela para endereço
     @Embedded
     private Endereco endereco;
 
